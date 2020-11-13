@@ -477,25 +477,25 @@ function ( fill_dd4hep_library_path )
   endif()
   if ( ${DD4HEP_USE_GEANT4} )
     get_filename_component(Geant4_LIBDIR "${Geant4_DIR}" DIRECTORY)
-    list( PREPEND _libpath "${Geant4_LIBDIR}" )
+    list( INSERT _libpath 0 "${Geant4_LIBDIR}" )
   endif()
 
   if(${DD4HEP_USE_LCIO})
-    list( PREPEND _libpath "${LCIO_DIR}/lib" )
+    list( INSERT _libpath 0 "${LCIO_DIR}/lib" )
   endif()
 
   if(DD4HEP_USE_GEANT4 AND DD4HEP_USE_CLHEP)
     # Using external CLHEP (not Geant4's builtin)
     get_target_property(_loc CLHEP::CLHEP LOCATION)
     get_filename_component(_dir "${_loc}" DIRECTORY)
-    list( PREPEND _libpath "${_dir}" )
+    list( INSERT _libpath 0 "${_dir}" )
   endif()
 
   if(XERCESC_LIB_DIR)
-    list( PREPEND _libpath "${XERCESC_LIB_DIR}" )
+    list( INSERT _libpath 0 "${XERCESC_LIB_DIR}" )
   endif()
 
-  list( PREPEND _libpath "${CMAKE_BINARY_DIR}/lib" )
+  list( INSERT _libpath 0 "${CMAKE_BINARY_DIR}/lib" )
   list( REMOVE_DUPLICATES _libpath )
   # Exclude common system library directories. These are automatically searched anyway,
   # and prepending them before the locations of the externals may cause trouble.
